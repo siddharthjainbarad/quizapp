@@ -1,6 +1,7 @@
 package com.siddharth.quizapp.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ public class QuizeService {
         return quizRepository.findAll();
     }
 
-    public Quiz getQuizById(int id) {
-        return quizRepository.findById(id).orElse(null);
+    public Optional<Quiz> getQuizById(int id) {
+        return quizRepository.findById(id);
     }
 }
