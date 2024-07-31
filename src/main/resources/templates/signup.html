@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Signup</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="title-text">
+            <div class="title">Signup Form</div>
+        </div>
+        <div class="form-container">
+            <div class="form-inner">
+                <form id="signupForm" class="signup">
+                    <div class="field">
+                        <input type="email" id="email" name="email" placeholder="Email Address" required />
+                    </div>
+                    <div class="field">
+                        <input type="text" id="username" name="username" placeholder="Username" required />
+                    </div>
+                    <div class="field">
+                        <input type="password" id="password" name="password" placeholder="Password" required />
+                    </div>
+                    <div class="field btn">
+                        <div class="btn-layer"></div>
+                        <button type="button" onclick="submitForm()">Sign Up</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function submitForm() {
+            const form = document.getElementById('signupForm');
+            const formData = new FormData(form);
+            const jsonData = {};
+            formData.forEach((value, key) => {
+                jsonData[key] = value;
+            });
+
+            fetch('/api/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(jsonData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>
