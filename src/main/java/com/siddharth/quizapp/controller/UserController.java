@@ -1,5 +1,6 @@
 package com.siddharth.quizapp.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class UserController {
     public User registerUser(@RequestBody User user) {
         return userService.registerUser(user);
     }
-    
+
     @PostMapping("/login")
     public String  loginUser(@RequestBody User user) {
         User existingUser = userService.findByUsername(user.getUsername());
@@ -35,6 +36,10 @@ public class UserController {
     public Optional<User> getUserById(@PathVariable int id) {
         return userService.findById(id);
     }
-    
+
+    @GetMapping("/users")
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
+    }
 
 }

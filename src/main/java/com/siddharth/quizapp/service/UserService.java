@@ -1,5 +1,6 @@
 package com.siddharth.quizapp.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +25,9 @@ public class UserService {
 
     public Optional<User> findById(int id) {
         return userRepository.findById(id);
+    }
+
+    public List<User> getAllUsers(){
+        return userRepository.findAll();
     }
 }

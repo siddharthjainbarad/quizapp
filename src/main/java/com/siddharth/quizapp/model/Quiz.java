@@ -33,7 +33,7 @@ public class Quiz {
     @Getter
     @ManyToOne
     @JoinColumn(name = "created_by")
-    private User createdBy;
+    private String createdBy;
 
     @Setter
     @Getter
