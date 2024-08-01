@@ -1,36 +1,45 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://unpkg.com/material-components-web/dist/material-components-web.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="wrapper">
-        <div class="title-text">
-            <div class="title">Signup</div>
-        </div>
-        <div class="form-container">
-            <div class="form-inner">
-                <form id="signupForm" class="signup">
-                    <div class="field">
-                        <input type="email" id="email" name="email" placeholder="Email Address" required />
-                    </div>
-                    <div class="field">
-                        <input type="text" id="username" name="username" placeholder="Username" required />
-                    </div>
-                    <div class="field">
-                        <input type="password" id="password" name="password" placeholder="Password" required />
-                    </div>
-                    <div class="field btn">
-                        <div class="btn-layer"></div>
-                        <button type="button" onclick="submitForm()">Sign Up</button>
-                    </div>
-                </form>
+        <h1 class="title">Signup</h1>
+        <form id="signupForm" class="mdc-form">
+            <div class="mdc-text-field mdc-text-field--outlined">
+                <input type="email" id="email" name="email" class="mdc-text-field__input" required>
+                <label class="mdc-floating-label" for="email">Email Address</label>
+                <div class="mdc-line-ripple"></div>
             </div>
-        </div>
+            <div class="mdc-text-field mdc-text-field--outlined">
+                <input type="text" id="username" name="username" class="mdc-text-field__input" required>
+                <label class="mdc-floating-label" for="username">Username</label>
+                <div class="mdc-line-ripple"></div>
+            </div>
+            <div class="mdc-text-field mdc-text-field--outlined">
+                <input type="password" id="password" name="password" class="mdc-text-field__input" required>
+                <label class="mdc-floating-label" for="password">Password</label>
+                <div class="mdc-line-ripple"></div>
+            </div>
+            <button type="button" class="mdc-button mdc-button--raised" onclick="submitForm()">
+                Sign Up
+            </button>
+        </form>
     </div>
 
+    <script src="https://unpkg.com/material-components-web/dist/material-components-web.min.js"></script>
     <script>
+        // Initialize MDC components
+        document.addEventListener('DOMContentLoaded', function () {
+            mdc.autoInit();
+        });
+
         function submitForm() {
             const form = document.getElementById('signupForm');
             const formData = new FormData(form);
