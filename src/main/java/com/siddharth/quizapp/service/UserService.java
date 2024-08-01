@@ -46,9 +46,6 @@ public class UserService {
     
     public boolean validateCredentials(String username, String password) {
         User user = userRepository.findByUsername(username);
-        if (user != null && user.getPassword().equals(password)) {
-            return true;
-        }
-        return false;
+        return user != null && user.getPassword().equals(password);
     }
 }
