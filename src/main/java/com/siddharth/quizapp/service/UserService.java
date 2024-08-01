@@ -43,4 +43,12 @@ public class UserService {
             throw new DuplicateException("Email already exists");
         }
     }
+    
+    public boolean validateCredentials(String username, String password) {
+        User user = userRepository.findByUsername(username);
+        if (user != null && user.getPassword().equals(password)) {
+            return true;
+        }
+        return false;
+    }
 }

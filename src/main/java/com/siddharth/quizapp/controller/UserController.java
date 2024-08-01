@@ -28,20 +28,27 @@ public class UserController {
     public ResponseEntity<?> registerUser(@RequestBody User user) {
         try{
             userService.validateUser(user);
-            User registerUser = userService.registerUser(user);
+            userService.registerUser(user);
             return ResponseEntity.ok(user.getUsername() + " : Created Successfully");
         } catch (DuplicateException e) {
             return ResponseEntity.status(HttpStatus.FOUND)
                                  //.header(HttpHeaders.LOCATION, "/login")
-                                 .body(e.getMessage());
+                                 .body(e.getMessage() + user.getUsername());
         }
     }
 
     @PostMapping("/login")
-    public String  loginUser(@RequestBody User user) {
-        User existingUser = userService.findByUsername(user.getUsername());
-        return "JWT token here";
+    public ResponseEntity<?> loginUser(@RequestBody User user) {
+        boolean isValid = userService.validateCredentials(user.getUsername(), user.getPassword());
+        if (isValid) {
+            System.out.println("\n\nLogin Success");
+            String token = "JWT token here";
+            return ResponseEntity.ok(token);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+        }
     }
+
 
     @GetMapping("/users/{id}")
     public Optional<User> getUserById(@PathVariable int id) {
