@@ -1,7 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Users List</title>    
+    <title>Users List</title>
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        table {
+            margin-top: 20px;
+        }
+        th, td {
+            text-align: center;
+        }
+    </style>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             fetch('/api/users')
@@ -28,17 +44,21 @@
 <body>
     <div class="container text-center">
         <h1>List of Users</h1>
-        <table>
-            <thead>
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
                 <tr>
                     <th>Username</th>
                     <th>Email</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- Rows will be populated by JavaScript -->
+                <!-- User data will be populated here by JavaScript -->
             </tbody>
         </table>
     </div>
+    <!-- Add Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

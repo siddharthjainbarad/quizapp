@@ -1,6 +1,7 @@
 package com.siddharth.quizapp.model;
 
-import java.util.Set;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,12 +10,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-public class Question {
+public class UserQuizAttempt {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,8 +22,9 @@ public class Question {
 
     @Setter
     @Getter
-    @Column(nullable = false)
-    private String text;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @Setter
     @Getter
@@ -33,6 +34,11 @@ public class Question {
 
     @Setter
     @Getter
-    @OneToMany(mappedBy = "question")
-    private Set<Answer> answers;
+    @Column(nullable = false)
+    private int score;
+
+    @Setter
+    @Getter
+    @Column(nullable = false)
+    private Timestamp attemptedAt = Timestamp.valueOf(LocalDateTime.now());
 }
