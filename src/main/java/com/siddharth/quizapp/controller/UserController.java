@@ -29,7 +29,7 @@ public class UserController {
         try{
             userService.validateUser(user);
             User registerUser = userService.registerUser(user);
-            return ResponseEntity.ok(registerUser);
+            return ResponseEntity.ok(user.getUsername() + " : Created Successfully");
         } catch (DuplicateException e) {
             return ResponseEntity.status(HttpStatus.FOUND)
                                  //.header(HttpHeaders.LOCATION, "/login")

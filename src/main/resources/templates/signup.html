@@ -4,65 +4,73 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://unpkg.com/material-components-web/dist/material-components-web.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+            max-width: 500px;
+        }
+        .title {
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .alert {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <div class="wrapper">
-        <h1 class="title">Signup</h1>
-        <form id="signupForm" class="mdc-form">
-            <div class="mdc-text-field mdc-text-field--outlined">
-                <input type="email" id="email" name="email" class="mdc-text-field__input" required>
-                <label class="mdc-floating-label" for="email">Email Address</label>
-                <div class="mdc-line-ripple"></div>
+    <div class="container">
+        <h1 class="title text-center">Signup</h1>
+        <div id="successMessage" class="alert alert-success" role="alert" style="display: none;"></div>
+        <div id="errorMessage" class="alert alert-danger" role="alert" style="display: none;"></div>
+        <form id="signupForm">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" class="form-control" required>
             </div>
-            <div class="mdc-text-field mdc-text-field--outlined">
-                <input type="text" id="username" name="username" class="mdc-text-field__input" required>
-                <label class="mdc-floating-label" for="username">Username</label>
-                <div class="mdc-line-ripple"></div>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" class="form-control" required>
             </div>
-            <div class="mdc-text-field mdc-text-field--outlined">
-                <input type="password" id="password" name="password" class="mdc-text-field__input" required>
-                <label class="mdc-floating-label" for="password">Password</label>
-                <div class="mdc-line-ripple"></div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" class="form-control" required>
             </div>
-            <button type="button" class="mdc-button mdc-button--raised" onclick="submitForm()">
-                Sign Up
-            </button>
+            <button type="submit" class="btn btn-primary btn-block">Signup</button>
         </form>
     </div>
-
-    <script src="https://unpkg.com/material-components-web/dist/material-components-web.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
-        // Initialize MDC components
-        document.addEventListener('DOMContentLoaded', function () {
-            mdc.autoInit();
+        $(document).ready(function() {
+            $('#signupForm').on('submit', function(event) {
+                event.preventDefault();
+                const formData = {
+                    email: $('#email').val(),
+                    username: $('#username').val(),
+                    password: $('#password').val()
+                };
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/register',
+                    contentType: 'application/json',
+                    data: JSON.stringify(formData),
+                    success: function(response) {
+                        $('#successMessage').text(response).show();
+                        $('#errorMessage').hide();
+                    },
+                    error: function(xhr) {
+                        $('#errorMessage').text(xhr.responseText).show();
+                        $('#successMessage').hide();
+                    }
+                });
+            });
         });
-
-        function submitForm() {
-            const form = document.getElementById('signupForm');
-            const formData = new FormData(form);
-            const jsonData = {};
-            formData.forEach((value, key) => {
-                jsonData[key] = value;
-            });
-
-            fetch('/api/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(jsonData)
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-        }
     </script>
 </body>
 </html>
