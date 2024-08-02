@@ -17,6 +17,7 @@ import lombok.Setter;
 public class Quiz {
 
     @Id
+    @Getter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 

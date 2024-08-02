@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>List of Quizzes</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script>
+        function loadQuizzes() {
+            fetch('/api/quiz')
+                .then(response => response.json())
+                .then(data => {
+                    const tbody = document.querySelector('tbody');
+                    tbody.innerHTML = ''; // Clear existing rows
+                    data.forEach(quiz => {
+                        const row = document.createElement('tr');
+
+                        const titleCell = document.createElement('td');
+                        titleCell.textContent = quiz.title;
+                        titleCell.onclick = () => openQuiz(quiz.id);
+                        titleCell.style.cursor = 'pointer';
+
+                        const topicCell = document.createElement('td');
+                        topicCell.textContent = quiz.topic;
+
+                        const createdByCell = document.createElement('td');
+                        createdByCell.textContent = quiz.createdBy;
+
+                        const createdAtCell = document.createElement('td');
+                        createdAtCell.textContent = new Date(quiz.createdAt).toLocaleDateString();
+
+                        row.appendChild(titleCell);
+                        row.appendChild(topicCell);
+                        row.appendChild(createdByCell);
+                        row.appendChild(createdAtCell);
+                        tbody.appendChild(row);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching quizzes:', error);
+                    alert('Failed to load quizzes.');
+                });
+        }
+
+        function openQuiz(quizId) {
+            window.location.href = `/update-quiz?quizId=${quizId}`;
+        }
+
+        window.onload = loadQuizzes;
+    </script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        table {
+            margin-top: 20px;
+        }
+        th,
+        td {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>List of Quizzes</h1>
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Title</th>
+                <th>Topic</th>
+                <th>Created By</th>
+                <th>Created At</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Quiz data will be populated here by JavaScript -->
+        </tbody>
+    </table>
+    <!-- Add Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

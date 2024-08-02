@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Quiz</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .question-list {
+            margin-top: 20px;
+        }
+        .question-item {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Update Quiz</h1>
+        <div class="question-list">
+            <h3>Questions</h3>
+            <ul id="questionList" class="list-group">
+                <!-- Questions will be populated here by JavaScript -->
+            </ul>
+        </div>
+        <div class="form-group">
+            <label for="questionText">Question</label>
+            <input type="text" class="form-control" id="questionText" placeholder="Enter question">
+        </div>
+        <div class="form-group">
+            <label>Answers</label>
+            <div id="answers">
+                <div class="form-check">
+                    <input type="radio" name="correctAnswer" value="0" class="form-check-input">
+                    <input type="text" class="form-control" placeholder="Answer 1">
+                </div>
+                <div class="form-check">
+                    <input type="radio" name="correctAnswer" value="1" class="form-check-input">
+                    <input type="text" class="form-control" placeholder="Answer 2">
+                </div>
+                <div class="form-check">
+                    <input type="radio" name="correctAnswer" value="2" class="form-check-input">
+                    <input type="text" class="form-control" placeholder="Answer 3">
+                </div>
+                <div class="form-check">
+                    <input type="radio" name="correctAnswer" value="3" class="form-check-input">
+                    <input type="text" class="form-control" placeholder="Answer 4">
+                </div>
+            </div>
+        </div>
+        <input type="hidden" id="quizId" value="">
+        <button class="btn btn-primary" onclick="addQuestion()">Add Question</button>
+        <button class="btn btn-success" onclick="submitQuiz()">Submit Quiz</button>
+    </div>
+    <script>
+        let questions = [];
+
+        function addQuestion() {
+            const questionText = document.getElementById('questionText').value;
+            const answerElements = document.querySelectorAll('#answers .form-check');
+            const answers = [];
+            let correctAnswerIndex = -1;
+
+            answerElements.forEach((element, index) => {
+                const answerText = element.querySelector('input[type="text"]').value;
+                const isCorrect = element.querySelector('input[type="radio"]').checked;
+                answers.push({ text: answerText, isCorrect: isCorrect });
+                if (isCorrect) {
+                    correctAnswerIndex = index;
+                }
+            });
+
+            if (questionText && correctAnswerIndex !== -1) {
+                questions.push({ text: questionText, answers: answers });
+                updateQuestionList();
+                clearForm();
+            } else {
+                alert('Please enter a question and select the correct answer.');
+            }
+        }
+
+        function updateQuestionList() {
+            const questionList = document.getElementById('questionList');
+            questionList.innerHTML = '';
+            questions.forEach((question, index) => {
+                const listItem = document.createElement('li');
+                listItem.className = 'list-group-item question-item';
+                listItem.textContent = `${index + 1}. ${question.text}`;
+                questionList.appendChild(listItem);
+            });
+        }
+
+        function clearForm() {
+            document.getElementById('questionText').value = '';
+            document.querySelectorAll('#answers .form-check input[type="text"]').forEach(input => input.value = '');
+            document.querySelectorAll('#answers .form-check input[type="radio"]').forEach(radio => radio.checked = false);
+        }
+
+        function submitQuiz() {
+            const quizId = document.getElementById('quizId').value;
+            fetch('/api/quiz/update', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ quizId: quizId, questions: questions })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Quiz updated successfully!');
+                questions = [];
+                updateQuestionList();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to update quiz.');
+            });
+        }
+
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const quizId = urlParams.get('quizId');
+            document.getElementById('quizId').value = quizId;
+        };
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
