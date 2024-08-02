@@ -9,8 +9,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,9 +32,8 @@ public class Quiz {
 
     @Setter
     @Getter
-    @ManyToOne
-    @JoinColumn(name = "created_by")
-    private User createdBy;
+    @Column(nullable = false)
+    private String createdBy;
 
     @Setter
     @Getter
@@ -47,4 +44,5 @@ public class Quiz {
     @Getter
     @OneToMany(mappedBy = "quiz")
     private Set<Question> questions;
+
 }

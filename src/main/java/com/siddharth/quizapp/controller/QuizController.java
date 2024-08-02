@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.siddharth.quizapp.exception.QuizNotFoundException;
-import com.siddharth.quizapp.model.Quiz;
+import com.siddharth.quizapp.model.Quiz; // Add this import statement
+import com.siddharth.quizapp.model.User;
 import com.siddharth.quizapp.service.QuizeService;
+import com.siddharth.quizapp.service.UserService;
 
 @RestController
 @RequestMapping("/api/quiz")
@@ -20,6 +22,10 @@ public class QuizController {
 
     @Autowired
     private QuizeService quizService;
+
+    @Autowired
+    private UserService userService;
+
 
     @GetMapping
     public List<Quiz> getAllQuizzes() {
@@ -34,6 +40,9 @@ public class QuizController {
 
     @PostMapping("createQuiz")
     public Quiz createQuiz(@RequestBody Quiz quiz) {
+        User user = userService.findByUsername(quiz.getCreatedBy());
+        //TODO handle null user check;
+        quiz.setCreatedBy(user.getUsername());
         return quizService.createQuiz(quiz);
     }
 

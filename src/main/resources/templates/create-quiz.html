@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Quiz</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+            max-width: 500px;
+        }
+        .title {
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .alert {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title text-center">Create a New Quiz</h1>
+        <div id="successMessage" class="alert alert-success" role="alert" style="display: none;"></div>
+        <div id="errorMessage" class="alert alert-danger" role="alert" style="display: none;"></div>
+        <form id="createQuizForm">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" class="form-control" id="title" name="title" required>
+            </div>
+            <div class="form-group">
+                <label for="topic">Topic</label>
+                <input type="text" class="form-control" id="topic" name="topic" required>
+            </div>
+            <div class="form-group">
+                <label for="createdBy">Created By</label>
+                <input type="text" class="form-control" id="createdBy" name="createdBy" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Create Quiz</button>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#createQuizForm').on('submit', function(event) {
+                event.preventDefault();
+                const formData = {
+                    title: $('#title').val(),
+                    topic: $('#topic').val(),
+                    createdBy: $('#createdBy').val()
+                };
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/quiz/createQuiz',
+                    contentType: 'application/json',
+                    data: JSON.stringify(formData),
+                    success: function(response) {
+                        $('#successMessage').text('Quiz created successfully!').show();
+                        $('#errorMessage').hide();
+                    },
+                    error: function(xhr) {
+                        $('#errorMessage').text(xhr.responseText).show();
+                        $('#successMessage').hide();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
