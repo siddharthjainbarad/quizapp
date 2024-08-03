@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.siddharth.quizapp.model.Quiz;
 import com.siddharth.quizapp.repository.QuizRepository;
@@ -18,6 +19,7 @@ public class QuizeService {
     @Autowired
     private UserRepository userRepository;
 
+    @Transactional
     public Quiz createQuiz(Quiz quiz){
         return quizRepository.save(quiz); 
     }
