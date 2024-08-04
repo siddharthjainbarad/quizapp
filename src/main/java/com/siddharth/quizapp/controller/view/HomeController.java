@@ -16,4 +16,24 @@ public class HomeController {
         model.addAttribute("username",username);
         return "home";
     }
+
+    @GetMapping("/create-quiz")
+    public String createQuiz() {
+        return "create-quiz";
+    }
+
+    @GetMapping("/list-user")
+    public String signup() {
+        return "/list-user";
+    }
+
+    @GetMapping("/list-quiz")
+    public String listQuizzes() {
+        return "/list-quiz";
+    }
+
+    @GetMapping("/update-quiz")
+    public String updateQuiz() {
+        return "/update-quiz";
+    }
 }
