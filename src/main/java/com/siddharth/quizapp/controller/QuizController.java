@@ -94,5 +94,4 @@ public class QuizController {
         response.put("message", "Questions Created Successfully");
         return ResponseEntity.ok(response);
     }
-
 }

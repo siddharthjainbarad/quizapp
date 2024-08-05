@@ -27,11 +27,6 @@ public class HomeController {
         return "/list-user";
     }
 
-    @GetMapping("/list-quiz")
-    public String listQuizzes() {
-        return "/list-quiz";
-    }
-
     @GetMapping("/update-quiz")
     public String updateQuiz() {
         return "/update-quiz";

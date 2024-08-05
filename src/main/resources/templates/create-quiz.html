@@ -1,30 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Quiz</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Create and List Quizzes</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
     <style>
         body {
             background-color: #f8f9fa;
         }
+
         .container {
             margin-top: 50px;
-            max-width: 500px;
+            max-width: 800px;
         }
+
         .title {
             margin-bottom: 30px;
         }
+
         .form-group {
             margin-bottom: 20px;
         }
+
         .alert {
             margin-top: 20px;
         }
+
+        .list-section {
+            margin-top: 50px;
+        }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1 class="title text-center">Create a New Quiz</h1>
@@ -45,11 +55,29 @@
             </div>
             <button type="submit" class="btn btn-primary btn-block">Create Quiz</button>
         </form>
+
+        <div class="list-section">
+            <h1 class="title text-center">List of Quizzes</h1>
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Title</th>
+                        <th>Topic</th>
+                        <th>Created By</th>
+                        <th>Created At</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Quiz data will be populated here by JavaScript -->
+                </tbody>
+            </table>
+        </div>
     </div>
+
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
-        $(document).ready(function() {
-            $('#createQuizForm').on('submit', function(event) {
+        $(document).ready(function () {
+            $('#createQuizForm').on('submit', function (event) {
                 event.preventDefault();
                 const formData = {
                     title: $('#title').val(),
@@ -61,17 +89,63 @@
                     url: '/api/quiz/createQuiz',
                     contentType: 'application/json',
                     data: JSON.stringify(formData),
-                    success: function(response) {
+                    success: function (response) {
                         $('#successMessage').text('Quiz created successfully!').show();
                         $('#errorMessage').hide();
+                        loadQuizzes(); // Refresh the list of quizzes
                     },
-                    error: function(xhr) {
+                    error: function (xhr) {
                         $('#errorMessage').text(xhr.responseText).show();
                         $('#successMessage').hide();
                     }
                 });
             });
+
+            function loadQuizzes() {
+                fetch('/api/quiz')
+                    .then(response => response.json())
+                    .then(data => {
+                        const tbody = document.querySelector('tbody');
+                        tbody.innerHTML = ''; // Clear existing rows
+                        data.forEach(quiz => {
+                            const row = document.createElement('tr');
+
+                            const titleCell = document.createElement('td');
+                            titleCell.textContent = quiz.title;
+                            titleCell.onclick = () => openQuiz(quiz.id);
+                            titleCell.style.cursor = 'pointer';
+
+                            const topicCell = document.createElement('td');
+                            topicCell.textContent = quiz.topic;
+
+                            const createdByCell = document.createElement('td');
+                            createdByCell.textContent = quiz.createdBy;
+
+                            const createdAtCell = document.createElement('td');
+                            createdAtCell.textContent = new Date(quiz.createdAt).toLocaleDateString();
+
+                            row.appendChild(titleCell);
+                            row.appendChild(topicCell);
+                            row.appendChild(createdByCell);
+                            row.appendChild(createdAtCell);
+                            tbody.appendChild(row);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error fetching quizzes:', error);
+                        alert('Failed to load quizzes.');
+                    });
+            }
+
+            function openQuiz(quizId) {
+                window.location.href = `/update-quiz?quizId=${quizId}`;
+            }
+
+            loadQuizzes(); // Load quizzes on page load
         });
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>
