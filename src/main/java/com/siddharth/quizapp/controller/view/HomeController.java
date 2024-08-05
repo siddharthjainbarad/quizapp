@@ -14,21 +14,21 @@ public class HomeController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         model.addAttribute("username",username);
-        return "home";
+        return "/private/home";
     }
 
     @GetMapping("/create-quiz")
     public String createQuiz() {
-        return "create-quiz";
+        return "/private/create-quiz";
     }
 
     @GetMapping("/list-user")
     public String signup() {
-        return "/list-user";
+        return "/private/list-user";
     }
 
     @GetMapping("/update-quiz")
     public String updateQuiz() {
-        return "/update-quiz";
+        return "/private/update-quiz";
     }
 }
