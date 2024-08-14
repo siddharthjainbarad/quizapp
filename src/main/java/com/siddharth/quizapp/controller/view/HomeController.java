@@ -22,6 +22,11 @@ public class HomeController {
         return "/private/create-quiz";
     }
 
+    @GetMapping("/take-quiz")
+    public String takeeQuiz() {
+        return "/private/take-quiz";
+    }
+
     @GetMapping("/list-user")
     public String signup() {
         return "/private/list-user";

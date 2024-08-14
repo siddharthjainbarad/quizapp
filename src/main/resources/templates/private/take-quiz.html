@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Take Quiz</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-color: #f0f2f5;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            overflow-y: auto; /* Ensures scrollability */
+        }
+
+        .title {
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        .question {
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .options .form-check {
+            margin-bottom: 10px;
+        }
+
+        .options .form-check input[type="radio"]:checked + label {
+            background-color: #d4edda; /* Light green for correct answers */
+        }
+
+        .options .form-check input[type="radio"]:checked + label.wrong {
+            background-color: #f8d7da; /* Light red for wrong answers */
+        }
+
+        .btn-submit {
+            margin-top: 20px;
+        }
+
+        .alert {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .btn-link {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .btn-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Available Quizzes</h1>
+        <table id="quizzesTable" class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Quiz ID</th>
+                    <th>Quiz Title</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Quizzes will be populated here -->
+            </tbody>
+        </table>
+
+        <div id="quizDetails" style="display: none;">
+            <h2 class="title">Quiz Questions</h2>
+            <div id="questionsContainer">
+                <!-- Questions and options will be populated here -->
+            </div>
+            <button class="btn btn-primary btn-submit">Submit Quiz</button>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            fetchQuizzes();
+
+            function fetchQuizzes() {
+                $.ajax({
+                    url: '/api/quiz',
+                    method: 'GET',
+                    success: function (data) {
+                        const quizzesTableBody = $('#quizzesTable tbody');
+                        quizzesTableBody.empty();
+                        data.forEach(quiz => {
+                            const row = `
+                                <tr>
+                                    <td>${quiz.id}</td>
+                                    <td>${quiz.title}</td>
+                                    <td><button class="btn btn-primary" onclick="loadQuiz(${quiz.id})">Take Quiz</button></td>
+                                </tr>
+                            `;
+                            quizzesTableBody.append(row);
+                        });
+                    },
+                    error: function (xhr) {
+                        console.error('Error fetching quizzes:', xhr);
+                    }
+                });
+            }
+        });
+
+        function loadQuiz(quizId) {
+            $.ajax({
+                url: `/api/quiz/${quizId}`,
+                method: 'GET',
+                success: function (data) {
+                    const quizDetails = $('#quizDetails');
+                    const questionsContainer = $('#questionsContainer');
+                    questionsContainer.empty();
+
+                    data.questions.forEach((question, index) => {
+                        const questionDiv = `
+                        <div class="question">
+                            <h3>Question ${index + 1}: ${question.text}</h3>
+                            <div class="options">
+                                ${question.answers.map((answer, answerIndex) => `
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="question${index}" value="${answerIndex}" data-correct="${answer.correct}">
+                                        <label class="form-check-label">${answer.text}</label>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                        questionsContainer.append(questionDiv);
+                    });
+
+                    $('#quizzesTable').hide();
+                    quizDetails.show();
+                },
+                error: function (xhr) {
+                    console.error('Error loading quiz:', xhr);
+                }
+            });
+        }
+
+        function submitQuiz() {
+            // Implement the logic for submitting the quiz
+            // Highlight correct and wrong answers
+            $('input[type="radio"]:checked').each(function () {
+                const isCorrect = $(this).data('correct');
+                const label = $(this).next('label');
+                if (isCorrect) {
+                    label.addClass('correct');
+                } else {
+                    label.addClass('wrong');
+                }
+            });
+        }
+
+        $('.btn-submit').click(submitQuiz);
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
