@@ -7,20 +7,32 @@
     <title>Update Quiz</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
+    <style>
+        #existingQuestionList {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+    </style>
 </head>
 
 <body>
     <div class="container mt-5">
         <h1 class="title text-center">Update Quiz</h1>
         <div class="question-list mt-4">
-            <h3>Questions</h3>
-            <ul id="questionList" class="list-group">
-                <!-- Questions will be populated here by JavaScript -->
+            <h3>Existing Questions</h3>
+            <ul id="existingQuestionList" class="list-group">
+                <!-- Existing Questions will be populated here by JavaScript -->
+            </ul>
+        </div>
+        <div class="question-list mt-4">
+            <h3>Newly Added Questions</h3>
+            <ul id="newQuestionList" class="list-group">
+                <!-- Newly Added Questions will be populated here by JavaScript -->
             </ul>
         </div>
         <div class="form-group mt-4">
-            <label for="questionText">Question</label>
-            <input type="text" class="form-control" id="questionText" placeholder="Enter question">
+            <label for="questionText">New Question</label>
+            <input type="text" class="form-control" id="questionText" placeholder="Enter new question">
         </div>
         <div class="form-group">
             <label>Answers</label>
@@ -69,21 +81,21 @@
 
             if (questionText && correctAnswerIndex !== -1) {
                 questions.push({ text: questionText, answers: answers });
-                updateQuestionList();
+                updateNewQuestionList();
                 clearForm();
             } else {
                 alert('Please enter a question and select the correct answer.');
             }
         }
 
-        function updateQuestionList() {
-            const questionList = document.getElementById('questionList');
-            questionList.innerHTML = '';
+        function updateNewQuestionList() {
+            const newQuestionList = document.getElementById('newQuestionList');
+            newQuestionList.innerHTML = '';
             questions.forEach((question, index) => {
                 const listItem = document.createElement('li');
                 listItem.className = 'list-group-item question-item';
                 listItem.textContent = `${index + 1}. ${question.text}`;
-                questionList.appendChild(listItem);
+                newQuestionList.appendChild(listItem);
             });
         }
 
@@ -116,7 +128,8 @@
                 .then(data => {
                     alert('Quiz updated successfully!');
                     questions = [];
-                    updateQuestionList();
+                    updateNewQuestionList();
+                    loadExistingQuestions(quizId);
                 })
                 .catch(error => {
                     console.error('Error:', error);
@@ -124,10 +137,28 @@
                 });
         }
 
+        function loadExistingQuestions(quizId) {
+            fetch(`/api/quiz/${quizId}`)
+                .then(response => response.json())
+                .then(data => {
+                    const existingQuestions = data.questions;
+                    const existingQuestionList = document.getElementById('existingQuestionList');
+                    existingQuestionList.innerHTML = '';
+                    existingQuestions.forEach((question, index) => {
+                        const listItem = document.createElement('li');
+                        listItem.className = 'list-group-item question-item';
+                        listItem.textContent = `${index + 1}. ${question.text}`;
+                        existingQuestionList.appendChild(listItem);
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
         window.onload = function () {
             const urlParams = new URLSearchParams(window.location.search);
             const quizId = urlParams.get('quizId');
             document.getElementById('quizId').value = quizId;
+            loadExistingQuestions(quizId);
         };
     </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
