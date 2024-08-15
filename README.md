@@ -1,93 +1,67 @@
-# Quiz Application
+# QuizApp
 
-This is a Spring Boot application for managing quizzes. It allows users to create, update, and view quizzes and their questions.
+QuizApp is a web application that allows users to take quizzes and interact with a chat service for quiz-related queries.
 
-## Features
-
-- User registration and login
-- Create and update quizzes
-- View existing quizzes and questions
-- Submit quizzes
-
-## Technologies Used
-
-- Spring Boot
-- Spring Web
-- Spring DevTools
-- Lombok
-- JSON Web Token (JWT)
-- Tomcat
-- JUnit for testing
-
-## Getting Started
-
-### Prerequisites
+## Prerequisites
 
 - Java 11 or higher
 - Maven
+- Spring Boot
 
-### Installation
+## Installation
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/your-username/quizapp.git
+    git clone https://github.com/yourusername/quizapp.git
+    ```
+2. Navigate to the project directory:
+    ```sh
     cd quizapp
     ```
-
-2. Build the project:
+3. Build the project using Maven:
     ```sh
     mvn clean install
     ```
 
-3. Run the application:
+## Usage
+
+1. Run the application:
     ```sh
     mvn spring-boot:run
     ```
+2. Access the application at `http://localhost:8080`.
 
-### Accessing the Application
+## API Endpoints
 
-Once the application is running, you can access it at `http://localhost:8080`.
+### ChatController
 
-### API Endpoints
+- **POST /api/chat/{quizId}**: Initiates a chat for the specified quiz.
 
-#### User Endpoints
+### QuizController
 
-- `POST /api/register`: Register a new user
-- `POST /api/login`: Login a user
-- `GET /api/users/{id}`: Get user by ID
-- `GET /api/users`: Get all users
+- **GET /api/quiz**: Retrieves a list of all quizzes.
+- **GET /api/quiz/{id}**: Retrieves a specific quiz by ID.
+- **POST /api/quiz**: Creates a new quiz.
+- **PUT /api/quiz/{id}**: Updates an existing quiz by ID.
+- **DELETE /api/quiz/{id}**: Deletes a quiz by ID.
 
-#### Quiz Endpoints
+### UserController
 
-- `GET /api/quiz`: Get all quizzes
-- `GET /api/quiz/{id}`: Get quiz by ID
-- `POST /api/quiz/createQuiz`: Create a new quiz
-- `POST /api/quiz/submitQuiz`: Submit a quiz
+- **GET /api/user**: Retrieves a list of all users.
+- **GET /api/user/{id}**: Retrieves a specific user by ID.
+- **POST /api/user**: Creates a new user.
+- **PUT /api/user/{id}**: Updates an existing user by ID.
+- **DELETE /api/user/{id}**: Deletes a user by ID.
 
-### Example Usage
+## Contributing
 
-To register a user, send a POST request to `/api/register` with the following JSON body:
-```json
-{
-    "username": "john_doe",
-    "password": "password123"
-}
-```
-To create a quiz, send a POST request to /api/quiz/createQuiz with the following JSON body:
-```json
-{
-    "title": "Sample Quiz",
-    "createdBy": "john_doe",
-    "questions": [
-        {
-            "text": "What is the capital of France?",
-            "answers": [
-                {"text": "Paris", "isCorrect": true},
-                {"text": "London", "isCorrect": false},
-                {"text": "Berlin", "isCorrect": false},
-                {"text": "Madrid", "isCorrect": false}
-            ]
-        }
-    ]
-}
-```
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature-branch`).
+3. Make your changes.
+4. Commit your changes (`git commit -m 'Add some feature'`).
+5. Push to the branch (`git push origin feature-branch`).
+6. Open a pull request.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
