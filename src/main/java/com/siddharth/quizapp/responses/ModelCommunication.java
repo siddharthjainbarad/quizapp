@@ -10,7 +10,6 @@ public interface ModelCommunication {
     I will just provide you title(topic) and quizId
     title(topic),quizId
     I want answer in strictly json format like i just sent you Java response should be strictly like below
-    Give atleast 10 questions
     {"quizId":(quizId),"questions":[{"text":"What is capital of Japan","answers":[{"text":"Seoul","isCorrect":false},{"text":"Tokyo","isCorrect":true},{"text":"Beijing","isCorrect":false},{"text":"Hong Kong","isCorrect":false}]},{"text":"What is the capital of France","answers":[{"text":"Berlin","isCorrect":false},{"text":"Paris","isCorrect":true},{"text":"London","isCorrect":false},{"text":"Rome","isCorrect":false}]}]}
     Noting should be before nothing should be after json to avaoid parsing errors
     """)

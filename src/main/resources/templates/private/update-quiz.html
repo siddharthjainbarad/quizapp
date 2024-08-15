@@ -58,7 +58,9 @@
         <input type="hidden" id="quizId" value="">
         <div class="text-center mt-4">
             <button class="btn btn-primary mr-2" onclick="addQuestion()">Add Question</button>
-            <button class="btn btn-success" onclick="submitQuiz()">Submit Quiz</button>
+            <button class="btn btn-success mr-2" onclick="submitQuiz()">Submit Quiz</button>
+            <!-- New AI Button -->
+            <button class="btn btn-info" onclick="generateAIQuestions()">Add 10 AI Questions</button>
         </div>
     </div>
     <script>
@@ -152,6 +154,23 @@
                     });
                 })
                 .catch(error => console.error('Error:', error));
+        }
+
+        function generateAIQuestions() {
+            const quizId = document.getElementById('quizId').value;
+
+            fetch(`/api/chat/addQuestions/${quizId}`, {
+                method: 'POST',
+            })
+                .then(response => response.text())
+                .then(data => {
+                    alert(data);
+                    updateNewQuestionList();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Failed to generate AI questions.');
+                });
         }
 
         window.onload = function () {
