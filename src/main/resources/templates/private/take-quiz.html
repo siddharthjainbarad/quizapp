@@ -3,66 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Take Quiz</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style.css">
+    <title>Modern Quiz</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
-            background-color: #f0f2f5;
-            font-family: 'Arial', sans-serif;
-            color: #333;
+            background-color: #f0f4f8;
+            font-family: 'Roboto', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
         }
 
         .container {
-            max-width: 800px;
-            background: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            overflow-y: auto; /* Ensures scrollability */
+            max-width: 900px;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+            text-align: left;
         }
 
         .title {
-            color: #007bff;
-            margin-bottom: 20px;
+            color: #2c3e50;
+            font-size: 28px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 30px;
         }
 
         .question {
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             padding: 20px;
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            position: relative;
+            background-color: #f9fbfd;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .question h3 {
+            margin-bottom: 15px;
+            font-size: 20px;
+            font-weight: 600;
+            color: #34495e;
         }
 
         .options .form-check {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .options .form-check input[type="radio"] {
+            display: none;
         }
 
         .options .form-check input[type="radio"]:checked + label {
-            background-color: #d4edda; /* Light green for correct answers */
+            background-color: #e0e0e0;
+            color: #000;
         }
 
-        .options .form-check input[type="radio"]:checked + label.wrong {
-            background-color: #f8d7da; /* Light red for wrong answers */
+        .options .form-check label {
+            padding: 10px 15px;
+            width: 100%;
+            background-color: #ffffff;
+            border: 1px solid #dcdde1;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .options .form-check input[type="radio"]:checked + label {
+            background-color: #e0e0e0;
+            color: #000;
+        }
+
+        .options .form-check label.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+
+        .options .form-check label.wrong {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
         }
 
         .btn-submit {
-            margin-top: 20px;
+            margin-top: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            background-color: #0056b3;
         }
 
         .alert {
             margin-top: 20px;
-            padding: 10px;
-            border-radius: 5px;
+            padding: 15px;
+            border-radius: 8px;
             display: none;
+            font-size: 16px;
         }
 
         .alert-success {
@@ -79,20 +126,30 @@
             text-align: center;
         }
 
-        .btn-link {
-            color: #007bff;
-            text-decoration: none;
-        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
 
-        .btn-link:hover {
-            text-decoration: underline;
+            .title {
+                font-size: 24px;
+            }
+
+            .question h3 {
+                font-size: 18px;
+            }
+
+            .btn-submit {
+                width: 100%;
+                padding: 14px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1 class="title">Available Quizzes</h1>
-        <table id="quizzesTable" class="table table-striped table-bordered">
+        <table id="quizzesTable" class="table table-hover">
             <thead class="thead-dark">
                 <tr>
                     <th>Quiz ID</th>
@@ -155,19 +212,28 @@
 
                     data.questions.forEach((question, index) => {
                         const questionDiv = `
-                        <div class="question">
-                            <h3>Question ${index + 1}: ${question.text}</h3>
-                            <div class="options">
-                                ${question.answers.map((answer, answerIndex) => `
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="question${index}" value="${answerIndex}" data-correct="${answer.correct}">
-                                        <label class="form-check-label">${answer.text}</label>
-                                    </div>
-                                `).join('')}
+                            <div class="question">
+                                <h3>Question ${index + 1}: ${question.text}</h3>
+                                <div class="options">
+                                    ${question.answers.map((answer, answerIndex) => `
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="question${index}" id="question${index}answer${answerIndex}" value="${answerIndex}" data-correct="${answer.correct}">
+                                            <label class="form-check-label" for="question${index}answer${answerIndex}">${answer.text}</label>
+                                        </div>
+                                    `).join('')}
+                                </div>
                             </div>
-                        </div>
-                    `;
+                        `;
                         questionsContainer.append(questionDiv);
+                    });
+
+                    // Add an event listener to update selection immediately
+                    $('input[type="radio"]').change(function () {
+                        const $parentDiv = $(this).closest('.question');
+                        // Remove the selected style from other labels
+                        $parentDiv.find('label').removeClass('selected');
+                        // Add selected class to the clicked label
+                        $(this).next('label').addClass('selected');
                     });
 
                     $('#quizzesTable').hide();
@@ -180,22 +246,23 @@
         }
 
         function submitQuiz() {
-            // Implement the logic for submitting the quiz
-            // Highlight correct and wrong answers
-            $('input[type="radio"]:checked').each(function () {
-                const isCorrect = $(this).data('correct');
-                const label = $(this).next('label');
-                if (isCorrect) {
-                    label.addClass('correct');
-                } else {
-                    label.addClass('wrong');
+            // Iterate over each question
+            $('.question').each(function () {
+                const selectedOption = $(this).find('input[type="radio"]:checked');
+                const correctOption = $(this).find('input[data-correct="true"]');
+
+                // Highlight the correct answer
+                correctOption.next('label').addClass('correct');
+
+                // If the selected option is wrong, highlight it
+                if (selectedOption.length && !selectedOption.data('correct')) {
+                    selectedOption.next('label').addClass('wrong');
                 }
             });
         }
 
         $('.btn-submit').click(submitQuiz);
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
