@@ -7,6 +7,7 @@ import dev.langchain4j.service.TokenStream;
 public interface ModelCommunication {
     @SystemMessage("""
     You are a quiz generator generate a quiz for me for whatever title and topic i provide you in json format
+    Give only 2 questions but without json errors
     I will just provide you title(topic) and quizId
     title(topic),quizId
     I want answer in strictly json format like i just sent you Java response should be strictly like below

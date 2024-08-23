@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.siddharth.quizapp.model.Answer;
 import com.siddharth.quizapp.model.Question;
 import com.siddharth.quizapp.model.Quiz;
+import com.siddharth.quizapp.repository.QuestionRepository;
 import com.siddharth.quizapp.repository.QuizRepository;
 import com.siddharth.quizapp.repository.UserRepository;
 
@@ -27,6 +28,9 @@ public class QuizeService {
     private QuizRepository quizRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private QuestionRepository questionRepository;
+
 
     @Transactional
     public Quiz createQuiz(Quiz quiz) {
@@ -48,7 +52,6 @@ public class QuizeService {
         }
     }
 
-    // QuizeService.java
     public ResponseEntity<?> addQuestionsToQuiz(Map<String, Object> payload) {
         int quizId = (int) payload.get("quizId");
         System.out.println(quizId);
@@ -79,5 +82,16 @@ public class QuizeService {
         Map<String, String> response = new HashMap<>();
         response.put("message", "Questions Created Successfully");
         return ResponseEntity.ok(response);
+    }
+
+    @Transactional
+    public boolean deleteQuestionById(int questionId) {
+        Optional<Question> questionOptional = questionRepository.findById(questionId);
+        if (questionOptional.isPresent()) {
+            questionRepository.deleteById(questionId);
+            return true;
+        } else {
+            return false;
+        }
     }
 }
