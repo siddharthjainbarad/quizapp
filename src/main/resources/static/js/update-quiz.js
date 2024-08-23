@@ -83,12 +83,14 @@ function loadExistingQuestions(quizId) {
             existingQuestions.forEach((question, index) => {
                 const listItem = document.createElement('li');
                 listItem.className = 'list-group-item question-item';
-                listItem.textContent = `${index + 1}. ${question.text}`;
 
-                // Create Delete Button
+                const questionText = document.createElement('span');
+                questionText.className = 'question-text';
+                questionText.textContent = `${index + 1}. ${question.text}`;
+
                 const deleteButton = document.createElement('button');
-                deleteButton.className = 'btn btn-danger btn-sm float-right';
-                deleteButton.textContent = 'Delete';
+                deleteButton.className = 'btn btn-danger btn-sm delete-button';
+                deleteButton.innerHTML = '<i class="fas fa-trash-alt"></i>';
                 deleteButton.onclick = function () {
                     if (question.id) {  // Ensure question.id exists
                         deleteQuestion(question.id);
@@ -96,8 +98,8 @@ function loadExistingQuestions(quizId) {
                         console.error('Invalid question ID:', question);
                     }
                 };
-                
 
+                listItem.appendChild(questionText);
                 listItem.appendChild(deleteButton);
                 existingQuestionList.appendChild(listItem);
             });
