@@ -48,4 +48,14 @@ public class UserService {
         User user = userRepository.findByUsername(username);
         return user != null && user.getPassword().equals(password);
     }
+    
+    public boolean deleteUserById(int id) {
+        Optional<User> user = userRepository.findById(id);
+        if (user.isPresent()) {
+            userRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
