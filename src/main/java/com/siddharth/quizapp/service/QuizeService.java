@@ -94,4 +94,8 @@ public class QuizeService {
             return false;
         }
     }
+ 
+    public void deleteQuizById(int id) {
+        quizRepository.deleteById(id);
+    }
 }
