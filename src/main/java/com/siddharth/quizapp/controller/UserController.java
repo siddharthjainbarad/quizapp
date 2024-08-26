@@ -38,17 +38,6 @@ public class UserController {
         }
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<?> loginUser(@RequestBody User user) {
-        boolean isValid = userService.validateCredentials(user.getUsername(), user.getPassword());
-        if (isValid) {
-            System.out.println("\n\nLogin Success");
-            String token = "JWT token here";
-            return ResponseEntity.ok(token);
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
-        }
-    }
 
     @GetMapping("/users/{id}")
     public Optional<User> getUserById(@PathVariable int id) {
