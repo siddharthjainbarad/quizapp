@@ -4,7 +4,6 @@ $(document).ready(function () {
         const formData = {
             title: $('#title').val(),
             topic: $('#topic').val(),
-            createdBy: $('#createdBy').val()
         };
         $.ajax({
             type: 'POST',
