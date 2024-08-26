@@ -13,8 +13,16 @@ public class HomeController {
     public String home(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
-        model.addAttribute("username",username);
+        model.addAttribute("username", username);
         return "/private/home";
+    }
+
+    @GetMapping("/update-profile")
+    public String updateProfile(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        model.addAttribute("username", username);
+        return "/private/update-profile";
     }
 
     @GetMapping("/create-quiz")

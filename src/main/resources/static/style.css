@@ -132,6 +132,20 @@ h1.title {
   word-wrap: break-word;
 }
 
+.user-profile {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+.user-profile span {
+  margin-right: 10px;
+  font-weight: bold;
+}
+.user-profile a {
+  color: #007bff;
+  text-decoration: none;
+}
+
 .delete-button {
   flex-shrink: 0;
 }

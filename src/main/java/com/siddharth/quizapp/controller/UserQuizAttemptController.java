@@ -7,6 +7,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -54,17 +56,14 @@ public class UserQuizAttemptController {
     @PostMapping
     public ResponseEntity<?> createUserQuizAttempt(@RequestBody Map<String, Object> payload) {
         int quizId = (int) payload.get("quizId");
-        int userId = (int) payload.get("userId");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        User user = userService.findByUsername(username);
         Optional<Quiz> quizOptional = quizeService.getQuizById(quizId);
         if (!quizOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Quiz not found");
         }
         Quiz quiz = quizOptional.get();
-        Optional<User> userOptional = userService.findById(userId);
-        if (!userOptional.isPresent()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Quiz not found");
-        }
-        User user = userOptional.get();
         UserQuizAttempt userQuizAttempt = new UserQuizAttempt();
         userQuizAttempt.setQuiz(quiz);
         userQuizAttempt.setUser(user);

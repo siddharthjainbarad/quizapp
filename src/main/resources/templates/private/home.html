@@ -20,15 +20,33 @@
         .link-container h3 {
             margin-bottom: 15px;
         }
+        .user-profile {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        .user-profile span {
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        .user-profile a {
+            color: #007bff;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
+    <div class="user-profile">
+        <span th:text="${username}"></span>
+        <a href="/update-profile">Update Profile</a>
+    </div>
     <div class="container text-center">
         <h1>Home Page</h1>
         <div class="link-container">
             <h3><a class="btn btn-primary" th:href="@{/list-user}">List of Users</a></h3>
             <h3><a class="btn btn-success" th:href="@{/create-quiz}">Create Quiz</a></h3>
             <h3><a class="btn btn-success" th:href="@{/take-quiz}">Take Quiz</a></h3>
+            <h3><a class="btn btn-danger" th:href="@{/logout}">Logout</a></h3>
         </div>
     </div>
     <!-- Add Bootstrap JS and dependencies -->
