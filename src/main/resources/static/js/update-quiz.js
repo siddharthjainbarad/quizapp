@@ -83,11 +83,51 @@ function loadExistingQuestions(quizId) {
             existingQuestions.forEach((question, index) => {
                 const listItem = document.createElement('li');
                 listItem.className = 'list-group-item question-item';
-                listItem.textContent = `${index + 1}. ${question.text}`;
+
+                const questionText = document.createElement('span');
+                questionText.className = 'question-text';
+                questionText.textContent = `${index + 1}. ${question.text}`;
+
+                const deleteButton = document.createElement('button');
+                deleteButton.className = 'btn btn-danger btn-sm delete-button';
+                deleteButton.innerHTML = '<i class="fas fa-trash-alt"></i>';
+                deleteButton.onclick = function () {
+                    if (question.id) {  // Ensure question.id exists
+                        deleteQuestion(question.id);
+                    } else {
+                        console.error('Invalid question ID:', question);
+                    }
+                };
+
+                listItem.appendChild(questionText);
+                listItem.appendChild(deleteButton);
                 existingQuestionList.appendChild(listItem);
             });
         })
         .catch(error => console.error('Error:', error));
+}
+
+function deleteQuestion(questionId) {
+    if (confirm('Are you sure you want to delete this question?')) {
+        fetch(`/api/question/${questionId}`, {
+            method: 'DELETE'
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to delete question.');
+                }
+                return response.text();
+            })
+            .then(data => {
+                alert('Question deleted successfully!');
+                const quizId = document.getElementById('quizId').value;
+                loadExistingQuestions(quizId); // Reload questions after deletion
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to delete question.');
+            });
+    }
 }
 
 function generateAIQuestions() {

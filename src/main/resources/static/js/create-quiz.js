@@ -4,7 +4,6 @@ $(document).ready(function () {
         const formData = {
             title: $('#title').val(),
             topic: $('#topic').val(),
-            createdBy: $('#createdBy').val()
         };
         $.ajax({
             type: 'POST',
@@ -46,10 +45,18 @@ $(document).ready(function () {
                     const createdAtCell = document.createElement('td');
                     createdAtCell.textContent = new Date(quiz.createdAt).toLocaleDateString();
 
+                    const actionsCell = document.createElement('td');
+                    const deleteButton = document.createElement('button');
+                    deleteButton.className = 'btn btn-danger btn-sm';
+                    deleteButton.innerHTML = '<i class="fas fa-trash-alt"></i>';
+                    deleteButton.onclick = () => deleteQuiz(quiz.id);
+                    actionsCell.appendChild(deleteButton);
+
                     row.appendChild(titleCell);
                     row.appendChild(topicCell);
                     row.appendChild(createdByCell);
                     row.appendChild(createdAtCell);
+                    row.appendChild(actionsCell);
                     tbody.appendChild(row);
                 });
             })
@@ -61,6 +68,28 @@ $(document).ready(function () {
 
     function openQuiz(quizId) {
         window.location.href = `/update-quiz?quizId=${quizId}`;
+    }
+
+    function deleteQuiz(quizId) {
+        if (confirm('Are you sure you want to delete this quiz?')) {
+            fetch(`/api/quiz/${quizId}`, {
+                method: 'DELETE'
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to delete quiz.');
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    alert('Quiz deleted successfully!');
+                    loadQuizzes(); // Reload quizzes after deletion
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Failed to delete quiz.');
+                });
+        }
     }
 
     loadQuizzes(); // Load quizzes on page load

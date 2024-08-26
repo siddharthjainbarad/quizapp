@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.siddharth.quizapp.exception.DuplicateException;
@@ -16,8 +17,12 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
     
+    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
     public User registerUser(User user) {
         validateUser(user);
+        String encodedPassword  = encoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
         return userRepository.save(user);
     }
 
@@ -47,5 +52,15 @@ public class UserService {
     public boolean validateCredentials(String username, String password) {
         User user = userRepository.findByUsername(username);
         return user != null && user.getPassword().equals(password);
+    }
+
+    public boolean deleteUserById(int id) {
+        Optional<User> user = userRepository.findById(id);
+        if (user.isPresent()) {
+            userRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
     }
 }

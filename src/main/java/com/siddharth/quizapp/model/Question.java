@@ -20,6 +20,7 @@ import lombok.Setter;
 public class Question {
 
     @Id
+    @Getter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 

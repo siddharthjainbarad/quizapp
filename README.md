@@ -1,57 +1,125 @@
 # QuizApp
 
-QuizApp is a web application that allows users to take quizzes and interact with a chat service for quiz-related queries.
+QuizApp is a web application that allows users to create, take, and manage quizzes. It includes features such as user authentication, quiz creation, quiz attempts, and a leaderboard.
 
-## Prerequisites
+## Table of Contents
 
-- Java 11 or higher
-- Maven
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Setup and Installation](#setup-and-installation)
+- [Usage](#usage)
+- [API Endpoints](#api-endpoints)
+- [Frontend](#frontend)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Features
+
+- User Authentication
+- Create and manage quizzes
+- Take quizzes
+- View leaderboard
+- Delete users and quizzes
+
+## Technologies Used
+
+- Java
 - Spring Boot
+- Spring Security
+- Thymeleaf
+- Bootstrap
+- JPA/Hibernate
+- H2 Database (for development)
+- RESTful APIs
 
-## Installation
+## Setup and Installation
 
-1. Clone the repository:
-    ```sh
+1. **Clone the repository:**
+
+    ```bash
     git clone https://github.com/yourusername/quizapp.git
-    ```
-2. Navigate to the project directory:
-    ```sh
     cd quizapp
     ```
-3. Build the project using Maven:
-    ```sh
-    mvn clean install
+
+2. **Build the project:**
+
+    ```bash
+    ./mvnw clean install
     ```
+
+3. **Run the application:**
+
+    ```bash
+    ./mvnw spring-boot:run
+    ```
+
+4. **Access the application:**
+
+    Open your browser and navigate to `http://localhost:8080`.
 
 ## Usage
 
-1. Run the application:
-    ```sh
-    mvn spring-boot:run
-    ```
-2. Access the application at `http://localhost:8080`.
+### User Authentication
+
+- Users can log in using their credentials.
+- Authentication is handled by Spring Security.
+
+### Creating a Quiz
+
+- Navigate to `/create-quiz`.
+- Fill in the quiz details and submit.
+
+### Taking a Quiz
+
+- Navigate to `/take-quiz`.
+- Select a quiz and answer the questions.
+
+### Viewing the Leaderboard
+
+- Navigate to `/api/userQuizAttempts/leaderboard` to view the leaderboard.
+
+### Deleting a User
+
+- Navigate to the user management section and delete a user by clicking the delete button.
+
+### Deleting a Quiz
+
+- Navigate to the quiz management section and delete a quiz by clicking the delete button.
 
 ## API Endpoints
 
-### ChatController
+### User Authentication
 
-- **POST /api/chat/{quizId}**: Initiates a chat for the specified quiz.
+- **POST** `/api/login`: Authenticate a user.
 
-### QuizController
+### User Management
 
-- **GET /api/quiz**: Retrieves a list of all quizzes.
-- **GET /api/quiz/{id}**: Retrieves a specific quiz by ID.
-- **POST /api/quiz**: Creates a new quiz.
-- **PUT /api/quiz/{id}**: Updates an existing quiz by ID.
-- **DELETE /api/quiz/{id}**: Deletes a quiz by ID.
+- **GET** `/api/users`: Get all users.
+- **GET** `/api/users/{id}`: Get a user by ID.
+- **DELETE** `/api/users/{id}`: Delete a user by ID.
 
-### UserController
+### Quiz Management
 
-- **GET /api/user**: Retrieves a list of all users.
-- **GET /api/user/{id}**: Retrieves a specific user by ID.
-- **POST /api/user**: Creates a new user.
-- **PUT /api/user/{id}**: Updates an existing user by ID.
-- **DELETE /api/user/{id}**: Deletes a user by ID.
+- **POST** `/api/quiz/createQuiz`: Create a new quiz.
+- **POST** `/api/quiz/submitQuiz`: Add questions to a quiz.
+- **DELETE** `/api/quiz/{id}`: Delete a quiz by ID.
+
+### Quiz Attempts
+
+- **GET** `/api/userQuizAttempts/leaderboard`: Get the leaderboard.
+
+## Frontend
+
+### HTML Templates
+
+- **Home Page**: `/private/home`
+- **Create Quiz Page**: `/private/create-quiz`
+- **Take Quiz Page**: `/private/take-quiz`
+
+### JavaScript
+
+- **list-user.js**: Handles fetching and deleting users.
+- **create-quiz.js**: Handles creating quizzes.
 
 ## Contributing
 

@@ -114,3 +114,24 @@ h1.title {
 .btn-link:hover {
   text-decoration: underline;
 }
+
+#existingQuestionList {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.question-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.question-text {
+  flex: 1;
+  margin-right: 10px;
+  word-wrap: break-word;
+}
+
+.delete-button {
+  flex-shrink: 0;
+}
