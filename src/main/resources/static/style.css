@@ -1,26 +1,28 @@
 body {
-  background-color: #f0f2f5;
-  font-family: 'Arial', sans-serif;
+  background-color: #f0f4f8;
+  font-family: 'Roboto', sans-serif;
   color: #333;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   margin: 0;
 }
 
 .container {
-  max-width: 600px;
-  background: #fff;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  max-width: 900px;
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  text-align: left;
 }
 
 h1.title {
   color: #007bff;
   margin-bottom: 20px;
+  text-align: center;
 }
 
 .form-group {
@@ -96,6 +98,19 @@ h1.title {
   border: 1px solid #ddd;
   border-radius: 5px;
   margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.question-text {
+  flex: 1;
+  margin-right: 10px;
+  word-wrap: break-word;
+}
+
+.delete-button {
+  flex-shrink: 0;
 }
 
 .text-center {
@@ -120,32 +135,120 @@ h1.title {
   overflow-y: auto;
 }
 
-.question-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.question {
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: #f9fbfd;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
-.question-text {
-  flex: 1;
-  margin-right: 10px;
-  word-wrap: break-word;
+.question h3 {
+  margin-bottom: 15px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #34495e;
 }
 
-.user-profile {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-}
-.user-profile span {
-  margin-right: 10px;
-  font-weight: bold;
-}
-.user-profile a {
-  color: #007bff;
-  text-decoration: none;
+.options .form-check {
+  margin-bottom: 12px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
 }
 
-.delete-button {
-  flex-shrink: 0;
+.options .form-check input[type="radio"] {
+  display: none;
+}
+
+.options .form-check input[type="radio"]:checked + label {
+  background-color: #e0e0e0;
+  color: #000;
+}
+
+.options .form-check label {
+  padding: 10px 15px;
+  width: 100%;
+  background-color: #ffffff;
+  border: 1px solid #dcdde1;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.options .form-check label.correct {
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+  color: #155724;
+}
+
+.options .form-check label.wrong {
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  color: #721c24;
+}
+
+.btn-submit {
+  margin-top: 30px;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-submit:hover {
+  background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+  .container {
+      padding: 20px;
+  }
+
+  .title {
+      font-size: 24px;
+  }
+
+  .question h3 {
+      font-size: 18px;
+  }
+
+  .btn-submit {
+      width: 100%;
+      padding: 14px;
+  }
+}
+
+/* Enhanced Gold, Silver, and Bronze Styles */
+.gold {
+  background: linear-gradient(145deg, #ffd700, #ffecb3); /* Gold gradient */
+  color: #4a3600; /* Darker gold text */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+}
+
+.silver {
+  background: linear-gradient(145deg, #c0c0c0, #e0e0e0); /* Silver gradient */
+  color: #4a4a4a; /* Darker silver text */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+}
+
+.bronze {
+  background: linear-gradient(145deg, #cd7f32, #e6a37d); /* Bronze gradient */
+  color: #4a2b0c; /* Darker bronze text */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+}
+
+/* Optional: Add hover effect for interactive feedback */
+.gold:hover, .silver:hover, .bronze:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+table {
+  border-collapse: separate; /* Ensure border-radius works */
+  border-spacing: 0; /* Remove spacing between cells */
+  border-radius: 8px; /* Adjust the value as needed */
+  overflow: hidden; /* Ensure content respects the border-radius */
 }
