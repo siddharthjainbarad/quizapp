@@ -1,6 +1,6 @@
 body {
-  background-color: #f0f4f8;
-  font-family: 'Roboto', sans-serif;
+  background-color: #f9fafb;
+  font-family: 'Poppins', sans-serif;
   color: #333;
   display: flex;
   justify-content: center;
@@ -13,43 +13,49 @@ body {
   max-width: 900px;
   background: #ffffff;
   padding: 40px;
-  border-radius: 12px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
   text-align: left;
 }
 
 h1.title {
-  color: #007bff;
-  margin-bottom: 20px;
-  text-align: center;
+  /* Material Design colors */
+  color: #0066ff; /* Primary blue */
+  margin-bottom: 24px; /* Consistent spacing */
+  text-align: center; /* Centered alignment */
+  font-size: 32px; /* Larger font size */
+  font-weight: 600; /* Bold font weight */
+  font-family: Roboto, sans-serif; /* Material Design font */
+  line-height: 1.2; /* Slightly compressed line height */
+  letter-spacing: -0.015em; /* Subtle letter spacing */
 }
 
-.form-group {
+h2.title {
+  color: #ff4d00;
   margin-bottom: 20px;
-  text-align: left;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
 }
 
 .form-group label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
+  font-weight: 500;
 }
 
 .form-control {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-sizing: border-box;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
 }
 
 .btn {
-  padding: 10px 20px;
+  padding: 12px 24px;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
   font-size: 16px;
+  transition: background-color 0.3s ease;
 }
 
 .btn-primary {
@@ -72,8 +78,8 @@ h1.title {
 
 .alert {
   margin-top: 20px;
-  padding: 10px;
-  border-radius: 5px;
+  padding: 12px;
+  border-radius: 6px;
   display: none;
 }
 
@@ -93,11 +99,11 @@ h1.title {
 }
 
 .question-item {
-  background-color: #f8f9fa;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  margin-bottom: 10px;
+  background-color: #f1f3f5;
+  padding: 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  margin-bottom: 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -107,6 +113,7 @@ h1.title {
   flex: 1;
   margin-right: 10px;
   word-wrap: break-word;
+  font-size: 18px;
 }
 
 .delete-button {
@@ -137,9 +144,9 @@ h1.title {
 
 .question {
   margin-bottom: 30px;
-  padding: 20px;
+  padding: 24px;
   background-color: #f9fbfd;
-  border-radius: 10px;
+  border-radius: 12px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
@@ -166,11 +173,11 @@ h1.title {
 }
 
 .options .form-check label {
-  padding: 10px 15px;
+  padding: 12px 20px;
   width: 100%;
   background-color: #ffffff;
-  border: 1px solid #dcdde1;
-  border-radius: 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
@@ -200,55 +207,35 @@ h1.title {
   background-color: #0056b3;
 }
 
-@media (max-width: 768px) {
-  .container {
-      padding: 20px;
-  }
-
-  .title {
-      font-size: 24px;
-  }
-
-  .question h3 {
-      font-size: 18px;
-  }
-
-  .btn-submit {
-      width: 100%;
-      padding: 14px;
-  }
-}
-
 /* Enhanced Gold, Silver, and Bronze Styles */
 .gold {
-  background: linear-gradient(145deg, #ffd700, #ffecb3); /* Gold gradient */
-  color: #4a3600; /* Darker gold text */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(145deg, #ffd700, #ffeb8a); /* Softer gold gradient */
+  color: #4a3600;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   border-radius: 8px;
 }
 
 .silver {
-  background: linear-gradient(145deg, #c0c0c0, #e0e0e0); /* Silver gradient */
-  color: #4a4a4a; /* Darker silver text */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(145deg, #c0c0c0, #e5e5e5); /* Softer silver gradient */
+  color: #4a4a4a;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   border-radius: 8px;
 }
 
 .bronze {
-  background: linear-gradient(145deg, #cd7f32, #e6a37d); /* Bronze gradient */
-  color: #4a2b0c; /* Darker bronze text */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(145deg, #cd7f32, #e6a37d); /* Softer bronze gradient */
+  color: #4a2b0c;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   border-radius: 8px;
 }
 
-/* Optional: Add hover effect for interactive feedback */
 .gold:hover, .silver:hover, .bronze:hover {
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
 }
 
 table {
-  border-collapse: separate; /* Ensure border-radius works */
-  border-spacing: 0; /* Remove spacing between cells */
-  border-radius: 8px; /* Adjust the value as needed */
-  overflow: hidden; /* Ensure content respects the border-radius */
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 8px;
+  overflow: hidden;
 }
