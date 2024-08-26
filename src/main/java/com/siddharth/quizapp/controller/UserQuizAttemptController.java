@@ -46,13 +46,12 @@ public class UserQuizAttemptController {
     }
 
     // Get a specific UserQuizAttempt by ID
-    @GetMapping("/{id}")
-    public ResponseEntity<UserQuizAttempt> getUserQuizAttemptById(@PathVariable Long id) {
-        UserQuizAttempt attempt = userQuizAttemptService.getUserQuizAttemptById(id);
-        return ResponseEntity.ok(attempt);
+    @GetMapping("/{quizId}")
+    public ResponseEntity<List<UserQuizAttempt>> getTop3UserQuizAttemptsByQuizId(@PathVariable Long quizId) {
+        List<UserQuizAttempt> topAttempts = userQuizAttemptService.getTop3UserQuizAttemptsByQuizId(quizId);
+        return ResponseEntity.ok(topAttempts);
     }
 
-    // Create a new UserQuizAttempt
     @PostMapping
     public ResponseEntity<?> createUserQuizAttempt(@RequestBody Map<String, Object> payload) {
         int quizId = (int) payload.get("quizId");

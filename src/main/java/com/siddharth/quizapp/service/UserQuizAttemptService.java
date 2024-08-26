@@ -1,7 +1,6 @@
 package com.siddharth.quizapp.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,9 +20,8 @@ public class UserQuizAttemptService {
     }
 
     // Get a specific UserQuizAttempt by ID
-    public UserQuizAttempt getUserQuizAttemptById(Long id) {
-        Optional<UserQuizAttempt> attempt = userQuizAttemptRepository.findById(id);
-        return attempt.orElse(null);
+    public List<UserQuizAttempt> getTop3UserQuizAttemptsByQuizId(Long quizId) {
+        return userQuizAttemptRepository.findTop3ByQuizIdOrderByScoreDesc(quizId);
     }
 
     // Create a new UserQuizAttempt
