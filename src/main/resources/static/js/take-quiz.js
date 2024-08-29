@@ -14,6 +14,7 @@ $(document).ready(function () {
                             <td>${quiz.id}</td>
                             <td>${quiz.title}</td>
                             <td><button class="btn btn-primary" onclick="loadQuiz(${quiz.id})">Take Quiz</button></td>
+                            <td><button class="btn btn-primary" onclick="loadLeaderboard(${quiz.id})">LeaderBoard</button></td>
                         </tr>
                     `;
                     quizzesTableBody.append(row);
@@ -60,7 +61,7 @@ function loadQuiz(quizId) {
                 // Add selected class to the clicked label
                 $(this).next('label').addClass('selected');
             });
-
+            $('h1.title').hide();
             $('#quizzesTable').hide();
             quizDetails.show();
         },
@@ -70,6 +71,41 @@ function loadQuiz(quizId) {
     });
 }
 
+function loadLeaderboard(quizId) {
+    $.ajax({
+        url: `/api/userQuizAttempts/${quizId}`,
+        method: 'GET',
+        success: function (data) {
+            const leaderboardBody = $('#leaderboardBody');
+            leaderboardBody.empty();
+            data.forEach((entry, index) => {
+                let rowClass = '';
+                if (index === 0) {
+                    rowClass = 'gold';
+                } else if (index === 1) {
+                    rowClass = 'silver';
+                } else if (index === 2) {
+                    rowClass = 'bronze';
+                }
+
+                const row = `
+                    <tr class="${rowClass}">
+                        <td>${entry.user.username}</td>
+                        <td>${entry.score}</td>
+                        <td>${new Date(entry.attemptedAt).toLocaleString()}</td>
+                    </tr>
+                `;
+                leaderboardBody.append(row);
+            });
+
+            $('#quizDetails').hide();
+            $('#leaderboard').show();
+        },
+        error: function (xhr) {
+            console.error('Error loading leaderboard:', xhr);
+        }
+    });
+}
 function submitQuiz() {
     let score = 0;
 

@@ -13,17 +13,31 @@ public class HomeController {
     public String home(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
-        model.addAttribute("username",username);
+        model.addAttribute("username", username);
         return "/private/home";
     }
 
+    @GetMapping("/update-profile")
+    public String updateProfile(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        model.addAttribute("username", username);
+        return "/private/update-profile";
+    }
+
     @GetMapping("/create-quiz")
-    public String createQuiz() {
+    public String createQuiz(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        model.addAttribute("username", username);
         return "/private/create-quiz";
     }
 
     @GetMapping("/take-quiz")
-    public String takeeQuiz() {
+    public String takeeQuiz(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        model.addAttribute("username", username);
         return "/private/take-quiz";
     }
 
@@ -33,7 +47,10 @@ public class HomeController {
     }
 
     @GetMapping("/update-quiz")
-    public String updateQuiz() {
+    public String updateQuiz(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        model.addAttribute("username", username);
         return "/private/update-quiz";
     }
 }

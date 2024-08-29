@@ -90,23 +90,53 @@ QuizApp is a web application that allows users to create, take, and manage quizz
 
 ### User Authentication
 
-- **POST** `/api/login`: Authenticate a user.
+| Method | Endpoint         | Description                |
+|--------|------------------|----------------------------|
+| POST   | /api/login       | Authenticate a user        |
 
 ### User Management
 
-- **GET** `/api/users`: Get all users.
-- **GET** `/api/users/{id}`: Get a user by ID.
-- **DELETE** `/api/users/{id}`: Delete a user by ID.
+| Method | Endpoint                | Description                                      |
+|--------|-------------------------|--------------------------------------------------|
+| POST   | /api/register           | Register a new user                              |
+| GET    | /api/users              | Get all users                                    |
+| GET    | /api/users/{id}         | Get user details by ID                           |
+| DELETE | /api/users/{id}         | Delete a user by ID                              |
+| GET    | /api/current-user       | Get the currently logged-in user                 |
+| POST   | /api/update-profile     | Update the profile of the currently logged-in user|
 
 ### Quiz Management
 
-- **POST** `/api/quiz/createQuiz`: Create a new quiz.
-- **POST** `/api/quiz/submitQuiz`: Add questions to a quiz.
-- **DELETE** `/api/quiz/{id}`: Delete a quiz by ID.
+| Method | Endpoint                | Description                |
+|--------|-------------------------|----------------------------|
+| GET    | /api/quiz               | Get all quizzes            |
+| GET    | /api/quiz/{id}          | Get quiz details by ID     |
+| POST   | /api/quiz/createQuiz    | Create a new quiz          |
+| POST   | /api/quiz/submitQuiz    | Add questions to a quiz    |
+| DELETE | /api/quiz/{id}          | Delete a quiz by ID        |
+
+### Question Management
+
+| Method | Endpoint                | Description                |
+|--------|-------------------------|----------------------------|
+| DELETE | /api/question/{questionId} | Delete a question by ID |
 
 ### Quiz Attempts
 
-- **GET** `/api/userQuizAttempts/leaderboard`: Get the leaderboard.
+| Method | Endpoint                        | Description                                |
+|--------|---------------------------------|--------------------------------------------|
+| GET    | /api/userQuizAttempts           | Get all user quiz attempts                 |
+| GET    | /api/userQuizAttempts/{quizId}  | Get top 3 user quiz attempts by quiz ID    |
+| POST   | /api/userQuizAttempts           | Create a new user quiz attempt             |
+| PUT    | /api/userQuizAttempts/{id}      | Update an existing user quiz attempt       |
+| DELETE | /api/userQuizAttempts/{id}      | Delete a user quiz attempt by ID           |
+| GET    | /api/userQuizAttempts/leaderboard | Get the leaderboard                      |
+
+### Chat Management
+
+| Method | Endpoint                        | Description                                |
+|--------|---------------------------------|--------------------------------------------|
+| POST   | /api/chat/addQuestions/{quizId} | Add questions to a quiz via chat prompt    |
 
 ## Frontend
 

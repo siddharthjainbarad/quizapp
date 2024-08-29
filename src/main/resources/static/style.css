@@ -1,53 +1,68 @@
 body {
-  background-color: #f0f2f5;
-  font-family: 'Arial', sans-serif;
+  background-color: #f9fafb;
+  font-family: 'Poppins', sans-serif;
   color: #333;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
   margin: 0;
 }
 
 .container {
-  max-width: 600px;
-  background: #fff;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  max-width: 900px;
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  text-align: left;
+  margin: 0 auto;
+  margin-top: 30px; /* Margin from the navbar */
 }
+
 
 h1.title {
-  color: #007bff;
-  margin-bottom: 20px;
+  /* Material Design colors */
+  color: #0066ff;
+  /* Primary blue */
+  margin-bottom: 24px;
+  /* Consistent spacing */
+  text-align: center;
+  /* Centered alignment */
+  font-size: 32px;
+  /* Larger font size */
+  font-weight: 600;
+  /* Bold font weight */
+  font-family: Roboto, sans-serif;
+  /* Material Design font */
+  line-height: 1.2;
+  /* Slightly compressed line height */
+  letter-spacing: -0.015em;
+  /* Subtle letter spacing */
 }
 
-.form-group {
+h2.title {
+  color: #ff4d00;
   margin-bottom: 20px;
-  text-align: left;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
 }
 
 .form-group label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
+  font-weight: 500;
 }
 
 .form-control {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-sizing: border-box;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
 }
 
 .btn {
-  padding: 10px 20px;
+  padding: 12px 24px;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
   font-size: 16px;
+  transition: background-color 0.3s ease;
 }
 
 .btn-primary {
@@ -70,8 +85,8 @@ h1.title {
 
 .alert {
   margin-top: 20px;
-  padding: 10px;
-  border-radius: 5px;
+  padding: 12px;
+  border-radius: 6px;
   display: none;
 }
 
@@ -91,11 +106,25 @@ h1.title {
 }
 
 .question-item {
-  background-color: #f8f9fa;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  margin-bottom: 10px;
+  background-color: #f1f3f5;
+  padding: 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.question-text {
+  flex: 1;
+  margin-right: 10px;
+  word-wrap: break-word;
+  font-size: 18px;
+}
+
+.delete-button {
+  flex-shrink: 0;
 }
 
 .text-center {
@@ -120,18 +149,155 @@ h1.title {
   overflow-y: auto;
 }
 
-.question-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.question {
+  margin-bottom: 30px;
+  padding: 24px;
+  background-color: #f9fbfd;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
-.question-text {
-  flex: 1;
-  margin-right: 10px;
-  word-wrap: break-word;
+.question h3 {
+  margin-bottom: 15px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #34495e;
 }
 
-.delete-button {
-  flex-shrink: 0;
+.options .form-check {
+  margin-bottom: 12px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
 }
+
+.options .form-check input[type="radio"] {
+  display: none;
+}
+
+.options .form-check input[type="radio"]:checked+label {
+  background-color: #e0e0e0;
+  color: #000;
+}
+
+.options .form-check label {
+  padding: 12px 20px;
+  width: 100%;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.options .form-check label.correct {
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+  color: #155724;
+}
+
+.options .form-check label.wrong {
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  color: #721c24;
+}
+
+.btn-submit {
+  margin-top: 30px;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-submit:hover {
+  background-color: #0056b3;
+}
+
+/* Enhanced Gold, Silver, and Bronze Styles */
+.gold {
+  background: linear-gradient(145deg, #ffd700, #ffeb8a);
+  /* Softer gold gradient */
+  color: #4a3600;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+}
+
+.silver {
+  background: linear-gradient(145deg, #c0c0c0, #e5e5e5);
+  /* Softer silver gradient */
+  color: #4a4a4a;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+}
+
+.bronze {
+  background: linear-gradient(145deg, #cd7f32, #e6a37d);
+  /* Softer bronze gradient */
+  color: #4a2b0c;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+}
+
+.gold:hover,
+.silver:hover,
+.bronze:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+}
+
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+        /* Navbar Styles */
+        .navbar-custom {
+          background-color: #0066ff;
+          padding: 10px 20px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .navbar-custom .navbar-brand,
+      .navbar-custom .nav-link {
+          color: #fff;
+          font-weight: 600;
+          transition: color 0.3s ease;
+      }
+
+      .navbar-custom .nav-link:hover {
+          color: #ffcc00;
+      }
+
+      .navbar-custom .navbar-toggler {
+          border-color: #fff;
+      }
+
+      .navbar-custom .navbar-toggler-icon {
+          color: #fff;
+      }
+
+      .navbar-custom .dropdown-menu {
+          background-color: #0066ff;
+          border: none;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .navbar-custom .dropdown-item {
+          color: #fff;
+          transition: background-color 0.3s ease;
+      }
+
+      .navbar-custom .dropdown-item:hover {
+          background-color: #0056b3;
+      }
+
+      .navbar-custom .active-nav {
+          color: #ffcc00;
+      }
+
+      .navbar-custom .navbar-brand {
+          font-size: 24px;
+          font-family: 'Roboto', sans-serif;
+      }
