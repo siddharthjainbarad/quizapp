@@ -5,11 +5,13 @@ import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,7 +30,6 @@ public class User {
     @Getter
     @Setter
     @Column(nullable = false)
-    @JsonIgnore
     private String password;
 
     @Getter
@@ -40,4 +41,9 @@ public class User {
     @Setter
     @Column(nullable = false)
     private Timestamp createdAt = Timestamp.valueOf(LocalDateTime.now());;
+
+    @Getter
+    @Setter
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private UserProfile userProfile;
 }

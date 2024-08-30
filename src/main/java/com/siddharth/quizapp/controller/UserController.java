@@ -1,5 +1,7 @@
 package com.siddharth.quizapp.controller;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,8 +32,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
-    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @PostMapping(value = "/register", consumes = "application/json")
     public ResponseEntity<?> registerUser(@RequestBody User user) {
@@ -78,21 +78,23 @@ public class UserController {
     }
 
     @PostMapping("/update-profile")
-    public ResponseEntity<?>  updateProfile(@RequestParam String email, @RequestParam String password, Model model) {
+    public ResponseEntity<?> updateProfile(@RequestParam String email,
+                                           @RequestParam(required = false) String firstName,
+                                           @RequestParam(required = false) String lastName,
+                                           @RequestParam(required = false) String dob,
+                                           @RequestParam String password) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            User user = userService.findByUsername(userDetails.getUsername());
-            if (user != null) {
-                user.setEmail(email);
-                if (!password.isEmpty()) {
-                    user.setPassword(encoder.encode(password)); // Assuming you have a password encoder
-                }
-                userService.updateUser(user);
-                model.addAttribute("message", "Profile updated successfully");
+            String result = userService.updateProfile(userDetails.getUsername(), email, firstName, lastName, dob, password);
+            if (result.equals("Profile updated successfully")) {
+                return ResponseEntity.ok(result);
+            } else if (result.equals("No changes were made to the profile")) {
+                return ResponseEntity.ok(result);
+            } else {
+                return ResponseEntity.badRequest().body(result);
             }
         }
-        return ResponseEntity.ok("Profile Updated Successfully");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not authenticated");
     }
-
 }
