@@ -1,3 +1,4 @@
+/* General Styles */
 body {
   background-color: #f9fafb;
   font-family: 'Poppins', sans-serif;
@@ -13,29 +14,19 @@ body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
   text-align: left;
-  margin: 0 auto;
-  margin-top: 30px; /* Margin from the navbar */
+  margin: 30px auto 0;
 }
 
-
+/* Typography */
 h1.title {
-  /* Material Design colors */
   color: #0066ff;
-  /* Primary blue */
   margin-bottom: 24px;
-  /* Consistent spacing */
   text-align: center;
-  /* Centered alignment */
   font-size: 32px;
-  /* Larger font size */
   font-weight: 600;
-  /* Bold font weight */
   font-family: Roboto, sans-serif;
-  /* Material Design font */
   line-height: 1.2;
-  /* Slightly compressed line height */
   letter-spacing: -0.015em;
-  /* Subtle letter spacing */
 }
 
 h2.title {
@@ -46,6 +37,7 @@ h2.title {
   font-weight: 600;
 }
 
+/* Form Styles */
 .form-group label {
   font-weight: 500;
 }
@@ -56,6 +48,7 @@ h2.title {
   border-radius: 6px;
 }
 
+/* Button Styles */
 .btn {
   padding: 12px 24px;
   border: none;
@@ -83,6 +76,29 @@ h2.title {
   background-color: #218838;
 }
 
+.btn-link {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.btn-link:hover {
+  text-decoration: underline;
+}
+
+.btn-submit {
+  margin-top: 30px;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-submit:hover {
+  background-color: #0056b3;
+}
+
+/* Alert Styles */
 .alert {
   margin-top: 20px;
   padding: 12px;
@@ -100,6 +116,7 @@ h2.title {
   color: #721c24;
 }
 
+/* Question Styles */
 .question-list {
   margin-top: 20px;
   text-align: left;
@@ -127,23 +144,6 @@ h2.title {
   flex-shrink: 0;
 }
 
-.text-center {
-  text-align: center;
-}
-
-.mt-3 {
-  margin-top: 1rem;
-}
-
-.btn-link {
-  color: #007bff;
-  text-decoration: none;
-}
-
-.btn-link:hover {
-  text-decoration: underline;
-}
-
 #existingQuestionList {
   max-height: 200px;
   overflow-y: auto;
@@ -164,6 +164,7 @@ h2.title {
   color: #34495e;
 }
 
+/* Option Styles */
 .options .form-check {
   margin-bottom: 12px;
   transition: background-color 0.3s ease;
@@ -174,7 +175,7 @@ h2.title {
   display: none;
 }
 
-.options .form-check input[type="radio"]:checked+label {
+.options .form-check input[type="radio"]:checked + label {
   background-color: #e0e0e0;
   color: #000;
 }
@@ -201,23 +202,9 @@ h2.title {
   color: #721c24;
 }
 
-.btn-submit {
-  margin-top: 30px;
-  font-size: 16px;
-  font-weight: 600;
-  padding: 12px 24px;
-  border-radius: 8px;
-  transition: background-color 0.3s ease;
-}
-
-.btn-submit:hover {
-  background-color: #0056b3;
-}
-
-/* Enhanced Gold, Silver, and Bronze Styles */
+/* Career Stats Styles */
 .gold {
   background: linear-gradient(145deg, #ffd700, #ffeb8a);
-  /* Softer gold gradient */
   color: #4a3600;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   border-radius: 8px;
@@ -225,7 +212,6 @@ h2.title {
 
 .silver {
   background: linear-gradient(145deg, #c0c0c0, #e5e5e5);
-  /* Softer silver gradient */
   color: #4a4a4a;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   border-radius: 8px;
@@ -233,7 +219,6 @@ h2.title {
 
 .bronze {
   background: linear-gradient(145deg, #cd7f32, #e6a37d);
-  /* Softer bronze gradient */
   color: #4a2b0c;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   border-radius: 8px;
@@ -245,6 +230,7 @@ h2.title {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
 }
 
+/* Table Styles */
 table {
   border-collapse: separate;
   border-spacing: 0;
@@ -252,52 +238,61 @@ table {
   overflow: hidden;
 }
 
-        /* Navbar Styles */
-        .navbar-custom {
-          background-color: #0066ff;
-          padding: 10px 20px;
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      }
+/* Navbar Styles */
+.navbar-custom {
+  background-color: #0066ff;
+  padding: 10px 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
-      .navbar-custom .navbar-brand,
-      .navbar-custom .nav-link {
-          color: #fff;
-          font-weight: 600;
-          transition: color 0.3s ease;
-      }
+.navbar-custom .navbar-brand,
+.navbar-custom .nav-link {
+  color: #fff;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
 
-      .navbar-custom .nav-link:hover {
-          color: #ffcc00;
-      }
+.navbar-custom .nav-link:hover {
+  color: #ffcc00;
+}
 
-      .navbar-custom .navbar-toggler {
-          border-color: #fff;
-      }
+.navbar-custom .navbar-toggler {
+  border-color: #fff;
+}
 
-      .navbar-custom .navbar-toggler-icon {
-          color: #fff;
-      }
+.navbar-custom .navbar-toggler-icon {
+  color: #fff;
+}
 
-      .navbar-custom .dropdown-menu {
-          background-color: #0066ff;
-          border: none;
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      }
+.navbar-custom .dropdown-menu {
+  background-color: #0066ff;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
 
-      .navbar-custom .dropdown-item {
-          color: #fff;
-          transition: background-color 0.3s ease;
-      }
+.navbar-custom .dropdown-item {
+  color: #fff;
+  transition: background-color 0.3s ease;
+}
 
-      .navbar-custom .dropdown-item:hover {
-          background-color: #0056b3;
-      }
+.navbar-custom .dropdown-item:hover {
+  background-color: #0056b3;
+}
 
-      .navbar-custom .active-nav {
-          color: #ffcc00;
-      }
+.navbar-custom .active-nav {
+  color: #ffcc00;
+}
 
-      .navbar-custom .navbar-brand {
-          font-size: 24px;
-          font-family: 'Roboto', sans-serif;
-      }
+.navbar-custom .navbar-brand {
+  font-size: 24px;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Utility Classes */
+.text-center {
+  text-align: center;
+}
+
+.mt-3 {
+  margin-top: 1rem;
+}
